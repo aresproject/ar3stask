@@ -2,24 +2,31 @@
 
 var taskapp = angular.module('ar3staskApp', [
   'ngRoute',
-  'tasksCtrl'
+  'tasksCtrl',
+  'highcharts-ng'
 ]);
 
 taskapp.config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: 'views/dashboard.html',
+        templateUrl: 'views/main.html',
         controller: 'testing'
       }).
+      when('/demo', {
+        templateUrl: 'views/highcharts-demo.html',
+        controller: 'myctrl'
+      }).
       when('/dashboard', {
-        templateUrl: 'views/main.html',
+        templateUrl: 'views/dashboard.html',
         controller: 'testing'
       }).
       otherwise({
         redirectTo: '/'
       });
 
-      $locationProvider.html5Mode(true); //for removing the # prefix in the URL
+      // $locationProvider.html5Mode(true); //for removing the # prefix in the URL
   }]);
+
+
 

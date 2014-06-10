@@ -1,5 +1,3 @@
-'use strict';
-
 // CHARTS
 $(function () { //PIE CHART
     var chart;
