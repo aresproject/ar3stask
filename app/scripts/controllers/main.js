@@ -4,9 +4,9 @@
 //----------------SECTION----------------------------
 //------------END OF SECTION-------------------------
 
-var testTask = angular.module('tasksCtrl', ["highcharts-ng"]);
+var taskGroup = angular.module('tasksCtrl', ["highcharts-ng"]);
 
-testTask.controller('tested', function($scope) {
+taskGroup.controller('tested', function($scope) {
   $scope.taskeru = [
     {'name': 'Task 1',
      'snippet': 'This is Task 1'},
@@ -17,7 +17,7 @@ testTask.controller('tested', function($scope) {
   ];
 });
 
-testTask.controller('testing', function($scope, $http) {
+taskGroup.controller('testing', function($scope, $http) {
   $http.get('database/tasks.json').success(function(data) {
     $scope.tasko = data;
     $scope.numLimit = 2000;
@@ -28,68 +28,6 @@ testTask.controller('testing', function($scope, $http) {
   $scope.chartSeriesTest = [
     {"name": "Task Cat 1", "data": [1, 2, 4, 7, 3]},
   ];
-
-  $scope.addPoints = function () {
-    var seriesArray = $scope.chartConfig.series;
-    var rndIdx = Math.floor(Math.random() * seriesArray.length);
-    seriesArray[rndIdx].data = seriesArray[rndIdx].data.concat([1, 10, 20])
-  };
-
-  $scope.addSeries = function () {
-    var rnd = []
-    for (var i = 0; i < 10; i++) {
-      rnd.push(Math.floor(Math.random() * 20) + 1)
-    }
-    $scope.chartConfig.series.push({
-      data: rnd
-    })
-  }
-
-  $scope.removeRandomSeries = function () {
-    var seriesArray = $scope.chartConfig.series;
-    var rndIdx = Math.floor(Math.random() * seriesArray.length);
-    seriesArray.splice(rndIdx, 1)
-  }
-
-  $scope.removeSeries = function (id) {
-    var seriesArray = $scope.chartConfig.series;
-    seriesArray.splice(id, 1)
-  }
-
-  $scope.toggleHighCharts = function () {
-    this.chartConfig.useHighStocks = !this.chartConfig.useHighStocks
-  }
-
-  $scope.replaceAllSeries = function () {
-    var data = [
-      { name: "first", data: [10] },
-      { name: "second", data: [3] },
-      { name: "third", data: [13] }
-    ];
-    $scope.chartConfig.series = data;
-  };
-
-  $scope.chartConfig = {
-    options: {
-      chart: {
-        type: 'areaspline'
-      },
-      plotOptions: {
-        series: {
-          stacking: ''
-        }
-      }
-    },
-    series: $scope.chartSeries,
-    title: {
-      text: 'Hello'
-    },
-    credits: {
-      enabled: true
-    },
-    loading: false,
-    size: {}
-  }
 
     $scope.chartConfig2 = {
     options: {
@@ -112,14 +50,107 @@ testTask.controller('testing', function($scope, $http) {
     loading: false,
     size: {}
   }
+});
 
+taskGroup.controller('dashboard', function($scope, $http) {
+  $http.get('database/tasks.json').success(function(data) {
+    $scope.taskData = data;
+    $scope.numLimit = 2000;
+    $scope.sortTask = 'Task';
+  });
+  $scope.orderProp = 'day';
 
+  $scope.chartPieSeries = [
+    {"name": "Task Cat 1", "data": [1, 2, 4, 7, 3]},
+  ];
 
-
-  $scope.reflow = function () {
-    $scope.$broadcast('highchartsng.reflow');
+  $scope.chartPie = {
+    options: {
+      chart: {
+        type: 'pie'
+      },
+      plotOptions: {
+        series: {
+          stacking: ''
+        }
+      }
+    },
+    series: $scope.chartPieSeries,
+    title: {
+      text: 'Task Catagories'
+    },
+    credits: {
+      enabled: true
+    },
+    loading: false,
+    size: {}
   };
 
+ $scope.chartColumn = {
+    options: {
+      chart: {
+        type: 'column'
+      },
+      plotOptions: {
+        series: {
+          stacking: ''
+        }
+      }
+    },
+    series: $scope.chartPieSeries,
+    title: {
+      text: 'For the Month of:'
+    },
+    credits: {
+      enabled: true
+    },
+    loading: false,
+    size: {}
+  }
+
+  $scope.chartBar = {
+    options: {
+      chart: {
+        type: 'bar'
+      },
+      plotOptions: {
+        series: {
+          stacking: ''
+        }
+      }
+    },
+    series: $scope.chartPieSeries,
+    title: {
+      text: 'Top 10 Activities for the Week:'
+    },
+    credits: {
+      enabled: true
+    },
+    loading: false,
+    size: {}
+  }
+
+  $scope.chartLine = {
+    options: {
+      chart: {
+        type: 'line'
+      },
+      plotOptions: {
+        series: {
+          stacking: ''
+        }
+      }
+    },
+    series: $scope.chartPieSeries,
+    title: {
+      text: 'Top 10 Activity Timeline'
+    },
+    credits: {
+      enabled: true
+    },
+    loading: false,
+    size: {}
+  }
 });
 
 

@@ -19,7 +19,11 @@ taskapp.config(['$routeProvider', '$locationProvider',
       }).
       when('/dashboard', {
         templateUrl: 'views/dashboard.html',
-        controller: 'testing'
+        controller: 'dashboard'
+      }).
+      when('/settings', {
+        templateUrl: 'views/settings.html',
+        controller: 'dashboard'
       }).
       otherwise({
         redirectTo: '/'
